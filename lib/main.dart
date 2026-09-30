@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/welcome_page.dart';
 
 void main() {
   runApp(const BuildSureApp());
@@ -13,34 +14,13 @@ class BuildSureApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'BuildSure',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-        ),
         useMaterial3: true,
-      ),
-      home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('BuildSure'),
-      ),
-      body: const Center(
-        child: Text(
-          'Welcome to BuildSure',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+        fontFamily: 'Arial',
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF0969C8),
         ),
       ),
+      home: const WelcomePage(),
     );
   }
 }
