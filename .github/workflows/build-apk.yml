@@ -1,0 +1,48 @@
+name: Build BuildSure APK
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Create Android project
+        run: |
+          flutter create \
+            --platforms=android \
+            --project-name buildsure \
+            android_project
+
+      - name: Copy BuildSure app files
+        run: |
+          rm -rf android_project/lib
+          cp -r lib android_project/lib
+          cp pubspec.yaml android_project/pubspec.yaml
+
+      - name: Install dependencies
+        working-directory: android_project
+        run: flutter pub get
+
+      - name: Build release APK
+        working-directory: android_project
+        run: flutter build apk --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: BuildSure-APK
+          path: android_project/build/app/outputs/flutter-apk/app-release.apk
