@@ -28,10 +28,14 @@ jobs:
             android_project
 
       - name: Copy BuildSure app files
-        run: |
-          rm -rf android_project/lib
-          cp -r lib android_project/lib
-          cp pubspec.yaml android_project/pubspec.yaml
+       run: |
+        rm -rf android_project/lib
+        cp -r lib android_project/lib
+
+        rm -rf android_project/assets
+        cp -r assets android_project/assets
+
+        cp pubspec.yaml android_project/pubspec.yaml
 
       - name: Install dependencies
         working-directory: android_project
